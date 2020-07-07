@@ -1,0 +1,31 @@
+{
+    "code": "1",
+    "msg": "smartdesigner.framework.common.ok",
+    "data": [
+      {
+        "sysRegion": "DEV",
+        "projectId": "6673163554096546368",
+        "projectCode": "0601",
+        "projectName": "DITO_0601",
+        "url": "http://edesign-dev.sd.huawei.com/",
+        "urlOther": "{\"CN\":\"测试\",\"EN\":\"DEV\"}"
+      },
+      {
+        "sysRegion": "DEV2",
+        "projectId": "6673163554096546369",
+        "projectCode": "0602",
+        "projectName": "Test Project",
+        "url": "http://edesign-dev.sd.huawei.com/",
+        "urlOther": "{\"CN\":\"测试\",\"EN\":\"DEV\"}"
+      },
+      {
+        "sysRegion": "DEV3",
+        "projectId": "6673163554096546370",
+        "projectCode": "0603",
+        "projectName": "Project3",
+        "url": "http://edesign-dev.sd.huawei.com/",
+        "urlOther": "{\"JP\":\"测试\",\"EN\":\"DEV\"}"
+      }
+    ]
+  }
+  

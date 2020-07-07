@@ -1,0 +1,36 @@
+{
+    "code": "1",
+    "msg": "smartdesigner.framework.common.ok",
+    "data": [
+        {
+            "id": 3,
+            "siteId": "NSTC0CAAA",
+            "templateName": "CAD Table",
+            "templateCode": "571f7ff355c84f8b95121a6929c7d192",
+            "version": "V3",
+            "fileInfo": {
+                "id": "be3119d9-d984-4fcb-8d06-0b7691b85889",
+                "reportId": null,
+                "name": "pl1000_All_Site_Shopping_Cart_Info_20200603201531.xlsx",
+                "type": "xlsx",
+                "size": 10.4
+            },
+            "totalNum": 3
+        },
+        {
+            "id": 4,
+            "siteId": "NSTC0CAAA",
+            "templateName": "Dynamic DATA",
+            "templateCode": "f614ea566b6846e9b87f95babc6f5b66",
+            "version": "V2",
+            "fileInfo": {
+                "id": "8f7a9711-cef9-43f2-87ab-fba52437012a",
+                "reportId": null,
+                "name": "Site ID 99_Dynamic Data_TEST.xlsx",
+                "type": "xlsx",
+                "size": 15.1
+            },
+            "totalNum": 2
+        }
+    ]
+}
