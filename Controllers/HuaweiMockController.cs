@@ -24,7 +24,7 @@ namespace WebApi.Controllers
         {
             _logger.LogInformation("Query project, account = {}", account);
             if (string.IsNullOrWhiteSpace(account))
-                return new JsonResult(new { Error = 404, Msg = "account is empty" });
+                return BadRequest(new { Error = 404, Msg = "account is empty" });
 
             using (var textReader = System.IO.File.OpenText("./TestData/project.json"))
             {
@@ -51,7 +51,7 @@ namespace WebApi.Controllers
             string.IsNullOrWhiteSpace(projectId) ||
             string.IsNullOrWhiteSpace(userInfo) ||
             userInfo.Substring(1, 9) != "\"account\"")
-                return new JsonResult(new { ErrorCode = 404, Msg = "account error" });
+                return BadRequest(new { ErrorCode = 404, Msg = "account error" });
 
             using (var textReader = System.IO.File.OpenText("./TestData/tasksite.json"))
             {
@@ -64,7 +64,7 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Route("cad/cad-data/report/zip")]
-        public async Task<IActionResult> TaskDataDownload(string siteId, string activityInstanceCode)
+        public IActionResult TaskDataDownload(string siteId, string activityInstanceCode)
         {
             var headers = HttpContext.Request.Headers;
             var projectCode = headers["project-code"].ToString();
@@ -80,19 +80,29 @@ siteId = {}, activityInstanceCode = {}",
             string.IsNullOrWhiteSpace(projectId) ||
             string.IsNullOrWhiteSpace(userInfo) ||
             userInfo.Substring(1, 9) != "\"account\"")
-                return new JsonResult(new { ErrorCode = 404, Msg = "account error" });
+                return BadRequest(new { ErrorCode = 404, Msg = "account error" });
 
             if (string.IsNullOrWhiteSpace(siteId) ||
             string.IsNullOrWhiteSpace(activityInstanceCode))
-                return new JsonResult(new { ErrorCode = 404, Msg = "siteId or activityInstanceCode is empty" });
+                return BadRequest(new { ErrorCode = 404, Msg = "siteId or activityInstanceCode is empty" });
 
-            return File(await System.IO.File.ReadAllBytesAsync("./TestData/taskdata.zip"),
-            "applicaton/zip", Guid.NewGuid() + ".zip");
+            try
+            {
+                var stream = Utils.Util.Compress("./TestData/taskdata_download",
+                 "./TestData/taskdata_download/result.json",
+                 "./TestData/taskdata_download/data");
+                return File(stream, "application/zip", Guid.NewGuid() + ".zip");
+
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
 
         [HttpGet]
         [Route("cad/download-cad-block")]
-        public async Task<IActionResult> CadDataDownload()
+        public IActionResult CadDataDownload()
         {
             var headers = HttpContext.Request.Headers;
             var projectCode = headers["project-code"].ToString();
@@ -106,10 +116,19 @@ siteId = {}, activityInstanceCode = {}",
             string.IsNullOrWhiteSpace(projectId) ||
             string.IsNullOrWhiteSpace(userInfo) ||
             userInfo.Substring(1, 9) != "\"account\"")
-                return new JsonResult(new { ErrorCode = 404, Msg = "account error" });
+                return BadRequest(new { ErrorCode = 404, Msg = "account error" });
 
-            return File(await System.IO.File.ReadAllBytesAsync("./TestData/caddata.zip"),
-            "applicaton/zip", Guid.NewGuid() + ".zip");
+            try
+            {
+                var stream = Utils.Util.Compress("./TestData/cadlibrary_download",
+                "./TestData/cadlibrary_download/result.json",
+                "./TestData/cadlibrary_download/data");
+                return File(stream, "applicaton/zip", Guid.NewGuid() + ".zip");
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
         }
     }
 }
