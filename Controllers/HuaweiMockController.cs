@@ -1,10 +1,14 @@
 
 using System;
+using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Linq;
+using System.Text;
 
 namespace WebApi.Controllers
 {
@@ -129,6 +133,62 @@ siteId = {}, activityInstanceCode = {}",
             {
                 return NotFound();
             }
+        }
+
+        [HttpPost]
+        [Route("cad/cad-data/deliverable/upload")]
+        public IActionResult UploadData(string taskId, string deliverableType)
+        {
+            var headers = HttpContext.Request.Headers;
+            var projectCode = headers["project-code"].ToString();
+            var projectId = headers["project-id"].ToString();
+            var userInfo = headers["user-info"].ToString();
+
+            _logger.LogInformation(
+@"Upload data, projectCode = {}, projectId = {}, userInfo = {},
+taskId = {}, deliverableType = {}",
+            projectCode, projectId, userInfo, taskId, deliverableType);
+
+            if (string.IsNullOrWhiteSpace(projectCode) ||
+                string.IsNullOrWhiteSpace(projectId) ||
+                string.IsNullOrWhiteSpace(userInfo) ||
+                userInfo.Substring(1, 9) != "\"account\"")
+                return BadRequest(new { ErrorCode = 404, Msg = "account error" });
+
+            if (string.IsNullOrWhiteSpace(taskId) ||
+                (deliverableType != "CAD Drawing Report" &&
+                deliverableType != "CAD Drawing"))
+                return BadRequest(new { ErrorCode = 404, Msg = "taskId is empty or deliverableType is invalid" });
+
+            var files = HttpContext.Request.Form.Files;
+            if (files.Count <= 0)
+                return BadRequest(new { ErrorCode = 404, Msg = "No files" });
+
+            _logger.LogInformation("Content length: {}, File name: {}", HttpContext.Request.ContentLength, files[0].FileName);
+
+            return Accepted(new { code = 1, msg = "upload ok", FileLength = files[0].Length });
+        }
+
+        [HttpPost]
+        [Route("site/start-task")]
+        public async Task<IActionResult> StartTask()
+        {
+            var headers = HttpContext.Request.Headers;
+            var projectCode = headers["project-code"].ToString();
+            var projectId = headers["project-id"].ToString();
+            var userInfo = headers["user-info"].ToString();
+
+            _logger.LogInformation("Start task, projectCode = {}, projectId = {}, userInfo = {}",
+            projectCode, projectId, userInfo);
+
+            if (string.IsNullOrWhiteSpace(projectCode) ||
+                string.IsNullOrWhiteSpace(projectId) ||
+                string.IsNullOrWhiteSpace(userInfo) ||
+                userInfo.Substring(1, 9) != "\"account\"")
+                return BadRequest(new { ErrorCode = 404, Msg = "account error" });
+
+            using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
+                return Ok(new { code = 1, msg = "start task ok", bodyContent = await reader.ReadToEndAsync() });
         }
     }
 }
