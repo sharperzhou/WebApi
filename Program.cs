@@ -21,6 +21,7 @@ namespace WebApi
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseKestrel(options => options.ListenAnyIP(5000));
                 });
     }
 }
