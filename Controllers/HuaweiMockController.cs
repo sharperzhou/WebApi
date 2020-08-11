@@ -26,7 +26,8 @@ namespace WebApi.Controllers
         [Route("project/user/query")]
         public async Task<IActionResult> ProjectQuery(string account)
         {
-            _logger.LogInformation("Query project, account = {}", account);
+            _logger.LogInformation("Query project, account = {}, ip = {}", 
+            account, HttpContext.Connection.RemoteIpAddress.MapToIPv4());
             if (string.IsNullOrWhiteSpace(account))
                 return BadRequest(new { Error = 404, Msg = "account is empty" });
 
@@ -163,6 +164,12 @@ taskId = {}, deliverableType = {}",
             var files = HttpContext.Request.Form.Files;
             if (files.Count <= 0)
                 return BadRequest(new { ErrorCode = 404, Msg = "No files" });
+
+            using (var stream = files[0].OpenReadStream())
+            {
+                var buffer = new byte[4096];
+                while (stream.Read(buffer, 0, buffer.Length) > 0) ;
+            }
 
             _logger.LogInformation("Content length: {}, File name: {}", HttpContext.Request.ContentLength, files[0].FileName);
 

@@ -7,7 +7,7 @@
         "projectId": "6673163554096546368",
         "projectCode": "0601",
         "projectName": "DITO_0601",
-        "url": "http://edesign-dev.sd.huawei.com/",
+        "url": "http://127.0.0.1:5000/",
         "urlOther": "{\"CN\":\"测试\",\"EN\":\"DEV\"}"
       },
       {
@@ -15,7 +15,7 @@
         "projectId": "6673163554096546369",
         "projectCode": "0602",
         "projectName": "Test Project",
-        "url": "http://edesign-dev.sd.huawei.com/",
+        "url": "http://127.0.0.1:5000/",
         "urlOther": "{\"CN\":\"测试\",\"EN\":\"DEV\"}"
       },
       {
@@ -23,7 +23,7 @@
         "projectId": "6673163554096546370",
         "projectCode": "0603",
         "projectName": "Project3",
-        "url": "http://edesign-dev.sd.huawei.com/",
+        "url": "http://127.0.0.1:5000/",
         "urlOther": "{\"JP\":\"测试\",\"EN\":\"DEV\"}"
       }
     ]

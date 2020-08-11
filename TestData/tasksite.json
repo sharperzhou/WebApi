@@ -122,5 +122,39 @@
             "teamCode": "",
             "pageUrl": "https://gstarcad.com"
         }
-    ]
+    ],
+    "ext": {
+        "showSeqList": [
+            "siteId",
+            "siteName",
+            "taskId",
+            "status",
+            "activityInstanceName",
+            "teamName",
+            "taskAssignerName",
+            "canStartTimeStamp",
+            "actualStartTimeStamp",
+            "planEndTimeStamp",
+            "actualEndTimeStamp"
+        ],
+        "showNameList": [
+            "Site ID",
+            "Site Name",
+            "Task ID",
+            "Task Status",
+            "Domain",
+            "Team",
+            "Owner",
+            "Arrived Time",
+            "Actual Start Time",
+            "Plan Completion Time",
+            "Actual Completion Time"
+        ],
+        "dateFieldList": [
+            "canStartTimeStamp",
+            "actualStartTimeStamp",
+            "planEndTimeStamp",
+            "actualEndTimeStamp"
+        ]
+    }
 }

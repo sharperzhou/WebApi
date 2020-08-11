@@ -13,7 +13,8 @@
                 "reportId": null,
                 "name": "pl1000_All_Site_Shopping_Cart_Info_20200603201531.xlsx",
                 "type": "xlsx",
-                "size": 10.4
+                "size": 10.4,
+                "path": "data/pl1000_All_Site_Shopping_Cart_Info_20200603201531.xlsx"
             },
             "totalNum": 3
         },
@@ -28,7 +29,8 @@
                 "reportId": null,
                 "name": "Site ID 99_Dynamic Data_TEST.xlsx",
                 "type": "xlsx",
-                "size": 15.1
+                "size": 15.1,
+                "path": "data/Site ID 99_Dynamic Data_TEST.xlsx"
             },
             "totalNum": 2
         }
