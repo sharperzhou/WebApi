@@ -1,0 +1,18 @@
+{
+    "code": "1",
+    "msg": "smartdesigner.framework.common.ok",
+    "data": {
+        "taskId": "fd525f1bed0e4c148badd12b83601116",
+        "extension": {
+            "jsonSha256": "498ad97c30f7fb892187366711dce03ff8c228659c4c3cecdb5aab63758a027d",
+            "sha256": "8cbe8b56d7a7d218af3c1b7daa4af08afe4d0142546c62cf351421dd33b7c9ed"
+        },
+        "fileInfo": {
+            "id": "e4244e10-1d5b-4b67-b6c6-6e1275cde94a",
+            "name": "CAD_jing0807_20200812_021728.zip",
+            "size": 0.05651092529296875,
+            "type": "zip"
+        }
+    },
+    "msgParams": null
+}

@@ -26,7 +26,7 @@ namespace WebApi.Controllers
         [Route("project/user/query")]
         public async Task<IActionResult> ProjectQuery(string account)
         {
-            _logger.LogInformation("Query project, account = {}, ip = {}", 
+            _logger.LogInformation("Query project, account = {}, ip = {}",
             account, HttpContext.Connection.RemoteIpAddress.MapToIPv4());
             if (string.IsNullOrWhiteSpace(account))
                 return BadRequest(new { Error = 404, Msg = "account is empty" });
@@ -196,6 +196,33 @@ taskId = {}, deliverableType = {}",
 
             using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
                 return Ok(new { code = 1, msg = "start task ok", bodyContent = await reader.ReadToEndAsync() });
+        }
+
+        [HttpPost]
+        [Route("cad/download-cad-block/check")]
+        public async Task<IActionResult> CheckCadBlock()
+        {
+            var headers = HttpContext.Request.Headers;
+            var projectCode = headers["project-code"].ToString();
+            var projectId = headers["project-id"].ToString();
+            var userInfo = headers["user-info"].ToString();
+
+            _logger.LogInformation("Check CAD block data, projectCode = {}, projectId = {}, userInfo = {}",
+            projectCode, projectId, userInfo);
+
+            if (string.IsNullOrWhiteSpace(projectCode) ||
+                string.IsNullOrWhiteSpace(projectId) ||
+                string.IsNullOrWhiteSpace(userInfo) ||
+                userInfo.Substring(1, 9) != "\"account\"")
+                return BadRequest(new { ErrorCode = 404, Msg = "account error" });
+
+            using (var textReader = System.IO.File.OpenText("./TestData/checkcad.json"))
+            {
+                using (var jsonReader = new JsonTextReader(textReader))
+                {
+                    return new JsonResult(await JToken.ReadFromAsync(jsonReader));
+                }
+            }
         }
     }
 }
