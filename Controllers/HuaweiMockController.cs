@@ -77,8 +77,7 @@ namespace WebApi.Controllers
             var userInfo = headers["user-info"].ToString();
 
             _logger.LogInformation(
-@"Download task data, projectCode = {}, projectId = {}, userInfo = {},
-siteId = {}, activityInstanceCode = {}",
+                "Download task data, projectCode = {}, projectId = {}, userInfo = {}, siteId = {}, activityInstanceCode = {}",
             projectCode, projectId, userInfo, siteId, activityInstanceCode);
 
             if (string.IsNullOrWhiteSpace(projectCode) ||
@@ -146,8 +145,7 @@ siteId = {}, activityInstanceCode = {}",
             var userInfo = headers["user-info"].ToString();
 
             _logger.LogInformation(
-@"Upload data, projectCode = {}, projectId = {}, userInfo = {},
-taskId = {}, deliverableType = {}",
+                "Upload data, projectCode = {}, projectId = {}, userInfo = {}, taskId = {}, deliverableType = {}",
             projectCode, projectId, userInfo, taskId, deliverableType);
 
             if (string.IsNullOrWhiteSpace(projectCode) ||
@@ -223,6 +221,33 @@ taskId = {}, deliverableType = {}",
                     return new JsonResult(await JToken.ReadFromAsync(jsonReader));
                 }
             }
+        }
+
+        [HttpPost]
+        [Route("site/submit-task")]
+        public async Task<IActionResult> SubmitTask()
+        {
+            var headers = HttpContext.Request.Headers;
+            var projectCode = headers["project-code"].ToString();
+            var projectId = headers["project-id"].ToString();
+            var userInfo = headers["user-info"].ToString();
+
+            _logger.LogInformation("Submit task, projectCode = {}, projectId = {}, userInfo = {}",
+            projectCode, projectId, userInfo);
+
+            if (string.IsNullOrWhiteSpace(projectCode) ||
+                string.IsNullOrWhiteSpace(projectId) ||
+                string.IsNullOrWhiteSpace(userInfo) ||
+                userInfo.Substring(1, 9) != "\"account\"")
+                return BadRequest(new { ErrorCode = 404, Msg = "account error" });
+
+            using (var reader = new StreamReader(Request.Body, Encoding.UTF8))
+            {
+                var bodyContent = await reader.ReadToEndAsync();
+                _logger.LogInformation("Body content: {}", bodyContent);
+                return Ok(new { code = 1, msg = "submit task ok", bodyContent });
+            }
+
         }
     }
 }
