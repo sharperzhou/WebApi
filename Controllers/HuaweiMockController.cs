@@ -137,7 +137,7 @@ namespace WebApi.Controllers
 
         [HttpPost]
         [Route("cad/cad-data/deliverable/upload")]
-        public IActionResult UploadData(string taskId, string deliverableType)
+        public async Task<IActionResult> UploadData(string taskId, string deliverableType)
         {
             var headers = HttpContext.Request.Headers;
             var projectCode = headers["project-code"].ToString();
@@ -164,12 +164,11 @@ namespace WebApi.Controllers
                 return BadRequest(new { ErrorCode = 404, Msg = "No files" });
 
             using (var stream = files[0].OpenReadStream())
+            using (var fs = System.IO.File.OpenWrite(Path.Combine(Path.GetTempPath(), files[0].FileName)))
             {
-                var buffer = new byte[4096];
-                while (stream.Read(buffer, 0, buffer.Length) > 0) ;
+                await stream.CopyToAsync(fs);
+                _logger.LogInformation("Content length: {}, File name: {}", HttpContext.Request.ContentLength, fs.Name);
             }
-
-            _logger.LogInformation("Content length: {}, File name: {}", HttpContext.Request.ContentLength, files[0].FileName);
 
             return Accepted(new { code = 1, msg = "upload ok", FileLength = files[0].Length });
         }
