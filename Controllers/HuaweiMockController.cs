@@ -248,5 +248,43 @@ namespace WebApi.Controllers
             }
 
         }
+
+        [HttpPost]
+        [Route("cad/cad-data/site/dynamic-data")]
+        public IActionResult DynamicDataDownload(string siteId, string activityInstanceCode)
+        {
+            var headers = HttpContext.Request.Headers;
+            var projectCode = headers["project-code"].ToString();
+            var projectId = headers["project-id"].ToString();
+            var userInfo = headers["user-info"].ToString();
+
+            _logger.LogInformation(
+                "Download structured dynamic data, projectCode = {}, projectId = {}, userInfo = {}, siteId = {}, activityInstanceCode = {}",
+            projectCode, projectId, userInfo, siteId, activityInstanceCode);
+
+            if (string.IsNullOrWhiteSpace(projectCode) ||
+            string.IsNullOrWhiteSpace(projectId) ||
+            string.IsNullOrWhiteSpace(userInfo) ||
+            userInfo.Substring(1, 9) != "\"account\"")
+                return BadRequest(new { ErrorCode = 404, Msg = "account error" });
+
+            if (string.IsNullOrWhiteSpace(siteId) ||
+            string.IsNullOrWhiteSpace(activityInstanceCode))
+                return BadRequest(new { ErrorCode = 404, Msg = "siteId or activityInstanceCode is empty" });
+
+            try
+            {
+                var stream = Utils.Util.Compress("./TestData/dynamicdata_download",
+                 "./TestData/dynamicdata_download/result.json",
+                 "./TestData/dynamicdata_download/data");
+                return File(stream, "application/zip", Guid.NewGuid() + ".zip");
+
+            }
+            catch (Exception)
+            {
+                return NotFound();
+            }
+        }
     }
 }
+

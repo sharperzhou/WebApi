@@ -1,0 +1,184 @@
+{
+    "code": "1",
+    "msg": "smartdesigner.framework.common.ok",
+    "data": {
+		"Bookmark":[{
+			"groupName":"All",
+			"dataList":[{
+				"bookmark":"Key1",
+				"value":"Value 1"
+			},{
+				"bookmark":"Key2",
+				"value":"Value 2"
+			}]
+		}],
+		"Table":[{
+			"groupName":"Existing",
+			"dataList":[{
+				"areaName":"Area Name",
+				"tableStyle":"Table2",
+				"tableName":"Table2-TX Old Parameter",
+				"tableTitleList": [{
+					"name":"自定义表头1",
+					"alignment": "LEFT",
+					"verticalAlignment": "CENTER"
+				},{
+					"name":"自定义表头2",
+					"alignment": "CENTER",
+					"verticalAlignment": "CENTER"
+				},{
+					"name":"自定义表头3",
+					"alignment": "CENTER",
+					"verticalAlignment": "CENTER"
+				},{
+					"name":"自定义表头4",
+					"alignment": "CENTER",
+					"verticalAlignment": "CENTER"
+				}],
+				"tableDataList": [[{
+					"title": "自定义表头1",
+					"value": "a1",
+					"alignment": "CENTER",
+					"verticalAlignment": "CENTER"
+				},{
+					"title": "自定义表头2",
+					"value": "a2",
+					"alignment": "LEFT",
+					"verticalAlignment": "CENTER"
+				},{
+					"title": "自定义表头3",
+					"value": "a3",
+					"alignment": "CENTER",
+					"verticalAlignment": "CENTER"
+				},{
+					"title": "自定义表头4",
+					"value": "a4",
+					"alignment": "RIGHT",
+					"verticalAlignment": "CENTER"
+				}],[{
+					"title": "自定义表头1",
+					"value": "b1",
+					"alignment": "CENTER",
+					"verticalAlignment": "CENTER"
+				},{
+					"title": "自定义表头2",
+					"value": "b2",
+					"alignment": "LEFT",
+					"verticalAlignment": "CENTER"
+				},{
+					"title": "自定义表头3",
+					"value": "b3",
+					"alignment": "CENTER",
+					"verticalAlignment": "CENTER"
+				},{
+					"title": "自定义表头4",
+					"value": "b4",
+					"alignment": "RIGHT",
+					"verticalAlignment": "CENTER"
+				}]]
+			}]
+		}],
+		"Block&Solution": [{
+			"groupName":"Proposal",
+			"dataList":[{
+				"type": "Block",
+				"domain": "CAD DATA",
+				"typeGroupName": "Product Specification Library",
+				"groupName": "",
+				"objectName": "Wireless Antenna Specification",
+				"tableTitleList": ["product Name", "Model Name", "Block Remark 1"],
+				"tableDataList":[{
+					"product Name": "A1",
+					"Model Name": "ASI4518R11V06",
+					"Block Remark 1": "rad"
+				},{
+					"product Name": "A2",
+					"Model Name": "ASI4518R11V06",
+					"Block Remark 1": "地方"
+				}]
+			},{
+				"type": "Solution",
+				"domain": "CAD DATA",
+				"typeGroupName": "Solution Library",
+				"groupName": "TE",
+				"objectName": "TE Solution",
+				"tableTitleList": ["Solution Name", "Solution Quantiy", "Block Remark 3"],
+				"tableDataList":[{
+					"Solution Name": "S01-绿地在-NCR-5",
+					"Solution Quantiy": "",
+					"Block Remark 1": "rad"
+				},{
+					"product Name": "A2",
+					"Model Name": "ASI4518R11V06",
+					"Block Remark 3": "按对方"
+				}]
+			}]
+		}],
+		"Cable":[{
+			"groupName":"existing",
+			"dataList":[{
+				"type": "Cable",
+				"domain": "CAD DATA",
+				"typeGroupName": "Product Specification Library",
+				"groupName": "",
+				"objectName": "Jumper Specification",
+				"tableTitleList": ["Cable Name", "Model", "A End Product Name"],
+				"tableDataList":[{
+					"Cable Name": "Jumper1",
+					"Model": "Jumper",
+					"A End Product Name": "RRU1"
+				}]
+			},{
+				"type": "Cable", 
+				"domain": "CAD DATA",
+				"typeGroupName": "Product Specification Library",
+				"groupName": "",
+				"objectName": "CPRI Specification",
+				"tableTitleList": ["Cable Name", "Model", "A End Equipment Name"],
+				"tableDataList":[{
+					"Cable Name": "CPRI1",
+					"Model": "CPRI",
+					"A End Equipment Name": "RRU1"
+				}]
+			}]
+		}],
+		"Layout": [{
+			"groupName":"Proposal",
+			"dataList":[{
+				"layout":"Rows",
+				"tableName": "Row A:xx",
+				"areaName":"Area 1",
+				"tableTitleList": ["Row No", "Product Name List", "block space", "Align U/D/M"],
+				"tableDataList":[{
+					"Row No": "1",
+					"Product Name List": "RRU1;RRU2;RRU3",
+					"block space": "xx",
+					"Align U/D/M": "U"
+				}]
+			},{
+				"layout":"Colums", 
+				"tableName": "Row A:xx",
+				"areaName":"Area 1",
+				"tableTitleList": ["Colum No", "Product Name List", "block space", "Align L/R/M"],
+				"tableDataList":[{
+					"Colum No": "a",
+					"Product Name List": "RRU1;RRU2;RRU3",
+					"block space": "xx",
+					"Align L/R/M": "L"
+				}]
+			}]
+		}],
+		"Photo":[{
+			"groupName":"Proposal",
+			"dataList":[{
+				"photoName":"Photo 1",
+				"areaName":"Area 1",
+				"fileInfo":[{
+					"fileId" : "519731e3-49a1-4891-8781-75ee1684f785",
+					"name" : "xxx.bmp",
+					"path" : "data\\Dynamic Data\\Photo\\xxx.bmp"
+				}]
+			}]
+		}]
+	}
+}
