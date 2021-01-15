@@ -14,7 +14,16 @@ namespace WebApi.Utils
             using (var zipArchive = new ZipArchive(stream, ZipArchiveMode.Create, true))
             {
                 foreach (var p in path)
-                    MakeEntry(zipArchive, Path.GetFullPath(p), Path.GetFullPath(basePath));
+                {
+                    MakeEntry(zipArchive, p, basePath);
+                    var dirInfo = new DirectoryInfo(p);
+                    if (!dirInfo.Exists) continue;
+                    var subInfos = dirInfo.EnumerateFileSystemInfos("*", SearchOption.AllDirectories);
+                    foreach (var info in subInfos) 
+                    {
+                        MakeEntry(zipArchive, info.FullName, basePath);
+                    }
+                }
             }
             stream.Seek(0, SeekOrigin.Begin);
             stream.Flush();
@@ -29,15 +38,12 @@ namespace WebApi.Utils
             }
             else if (Directory.Exists(path))
             {
-                var dirInfo = new DirectoryInfo(path);
-                foreach (var fileInfo in dirInfo.GetFiles())
-                    zipArchive.CreateEntryFromFile(fileInfo.FullName, Path.GetRelativePath(basePath, fileInfo.FullName));
-
-                foreach (var d in dirInfo.GetDirectories())
-                    MakeEntry(zipArchive, d.FullName, basePath);
+                zipArchive.CreateEntry(Path.GetRelativePath(basePath, path) + Path.DirectorySeparatorChar);
             }
             else
+            {
                 throw new IOException("Path is not a file or directory");
+            }
         }
     }
 }
