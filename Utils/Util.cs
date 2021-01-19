@@ -19,7 +19,7 @@ namespace WebApi.Utils
                     var dirInfo = new DirectoryInfo(p);
                     if (!dirInfo.Exists) continue;
                     var subInfos = dirInfo.EnumerateFileSystemInfos("*", SearchOption.AllDirectories);
-                    foreach (var info in subInfos) 
+                    foreach (var info in subInfos)
                     {
                         MakeEntry(zipArchive, info.FullName, basePath);
                     }
@@ -38,7 +38,11 @@ namespace WebApi.Utils
             }
             else if (Directory.Exists(path))
             {
-                zipArchive.CreateEntry(Path.GetRelativePath(basePath, path) + Path.DirectorySeparatorChar);
+                var newEntry = zipArchive.CreateEntry(Path.GetRelativePath(basePath, path) + Path.DirectorySeparatorChar);
+                var lastWriteTime = Directory.GetLastWriteTime(path);
+                if (lastWriteTime.Year < 1980 || lastWriteTime.Year > 2107)
+                    lastWriteTime = new System.DateTime(1980, 1, 1, 0, 0, 0);
+                newEntry.LastWriteTime = lastWriteTime;
             }
             else
             {
