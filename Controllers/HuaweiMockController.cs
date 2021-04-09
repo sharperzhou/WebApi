@@ -95,7 +95,7 @@ namespace WebApi.Controllers
                 var stream = Utils.Util.Compress("./TestData/taskdata_download",
                  "./TestData/taskdata_download/result.json",
                  "./TestData/taskdata_download/data");
-                return File(stream, "application/zip", Guid.NewGuid() + ".zip");
+                return File(stream, "application/zip", $"task_data_{DateTime.Now:yyyyMMdd_HHmm_UTCz}.zip");
 
             }
             catch (Exception)
@@ -127,7 +127,7 @@ namespace WebApi.Controllers
                 var stream = Utils.Util.Compress("./TestData/cadlibrary_download",
                 "./TestData/cadlibrary_download/result.json",
                 "./TestData/cadlibrary_download/data");
-                return File(stream, "applicaton/zip", Guid.NewGuid() + ".zip");
+                return File(stream, "applicaton/zip", $"cad_library_{DateTime.Now:yyyyMMdd_HHmm_UTCz}.zip");
             }
             catch (Exception)
             {
@@ -277,7 +277,7 @@ namespace WebApi.Controllers
                 var stream = Utils.Util.Compress("./TestData/dynamicdata_download",
                  "./TestData/dynamicdata_download/result.json",
                  "./TestData/dynamicdata_download/data");
-                return File(stream, "application/zip", Guid.NewGuid() + ".zip");
+                return File(stream, "application/zip", $"dynamic_data_{DateTime.Now:yyyyMMdd_HHmm_UTCz}.zip");
 
             }
             catch (Exception)
