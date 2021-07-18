@@ -1,0 +1,37 @@
+name: ubuntu
+
+on:
+  push:
+    tags: [ '*' ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Publish
+      run: dotnet publish --no-restore -c Release -o output
+    - name: Create archive
+      run: cd output && tar -zcvf ../output.tar.gz * && cd ..
+    # put the tag name in env:GIT_TAG_NAME
+    - name: Get tag name
+      uses: olegtarasov/get-tag@v2.1
+    - name: Upload to release
+      if: startsWith(github.event.ref, 'refs/tags/')
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ./output.tar.gz
+        asset_name: WebApi-${{ env.GIT_TAG_NAME }}-ubuntu.tar.gz
+        tag: ${{ github.ref }}
+        overwrite: true
